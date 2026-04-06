@@ -26,6 +26,7 @@ export default function Navbar() {
           top: 0,
           zIndex: 50,
         }}
+        className="desktop-nav"
       >
         {/* Logo */}
         <span
@@ -83,6 +84,7 @@ export default function Navbar() {
             alignItems: "center",
             gap: 8,
           }}
+          className="desktop-right-section"
         >
           {/* Role badge */}
           <span
@@ -122,7 +124,7 @@ export default function Navbar() {
       {/* ── Mobile Bottom Nav ── */}
       <nav
         style={{
-          display: "none",
+          display: "flex",
           position: "fixed",
           bottom: 0,
           left: 0,
@@ -131,6 +133,7 @@ export default function Navbar() {
           background: "var(--color-background-primary)",
           borderTop: "0.5px solid var(--color-border-tertiary)",
           padding: "8px 0 12px",
+          justifyContent: "space-around",
         }}
         className="mobile-bottom-nav"
       >
@@ -165,10 +168,76 @@ export default function Navbar() {
         })}
       </nav>
 
+      {/* ── Mobile Top Nav ── */}
+      <nav
+        style={{
+          display: "flex",
+          background: "var(--color-background-primary)",
+          borderBottom: "0.5px solid var(--color-border-tertiary)",
+          padding: "0 1rem",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: 52,
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+        }}
+        className="mobile-top-nav"
+      >
+        {/* Logo */}
+        <span
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+            letterSpacing: "-0.3px",
+          }}
+        >
+          FinTrack
+        </span>
+
+        {/* Mobile role selector */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span
+            style={{
+              fontSize: 10,
+              padding: "2px 6px",
+              borderRadius: 10,
+              fontWeight: 500,
+              ...(role === "admin"
+                ? { background: "#DCFCE7", color: "#166534" }
+                : {
+                    background: "var(--color-background-secondary)",
+                    color: "var(--color-text-secondary)",
+                  }),
+            }}
+          >
+            {role === "admin" ? "Admin" : "Viewer"}
+          </span>
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            style={{
+              ...S.input,
+              width: "auto",
+              fontSize: 12,
+              padding: "3px 8px",
+            }}
+          >
+            <option value="viewer">Viewer</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </nav>
+
       <style>{`
-        @media (max-width: 640px) {
-          .desktop-tabs { display: none !important; }
+        @media (min-width: 769px) {
+          .mobile-bottom-nav { display: none !important; }
+          .mobile-top-nav { display: none !important; }
+        }
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
           .mobile-bottom-nav { display: flex !important; }
+          .mobile-top-nav { display: flex !important; }
         }
       `}</style>
     </>
